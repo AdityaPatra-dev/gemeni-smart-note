@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic Explanation - Gemini SmartNotes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Glow Orbs -->
+    <div class="bg-ambient-orb orb-1"></div>
+    <div class="bg-ambient-orb orb-2"></div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="logo-text-group">
+                        <span class="logo-text">Gemini SmartNotes</span>
+                        <span class="logo-subtitle">Adaptive Explanation</span>
+                    </div>
+                </a>
+
+                <div class="nav-actions">
+                    <button class="btn-api-settings" title="Configure Gemini API Key">
+                        <span class="status-dot"></span>
+                        <span id="apiSettingsLabel">AI Engine</span>
+                    </button>
+                    <button class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Theme"></button>
+                    <a href="index.html" class="btn-secondary">← Home</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="explanation-page">
+        <div class="container">
+            <div class="explanation-container">
+                <!-- Header Section -->
+                <div class="page-header">
+                    <div class="page-badge">📚 Deep Conceptual Breakdown</div>
+                    <h1 class="page-title">AI Topic Explanation</h1>
+                    <p class="page-subtitle">Learn fundamentals, intuitive models, and practical applications at any difficulty.</p>
+                </div>
+
+                <!-- Input Card -->
+                <div class="card input-card">
+                    <div class="form-group">
+                        <label for="topic" class="label">Enter Your Topic</label>
+                        <input 
+                            type="text" 
+                            id="topic" 
+                            class="input" 
+                            placeholder="e.g., Binary Search Algorithm, Photosynthesis, Neural Networks, Docker"
+                            autofocus
+                        />
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="difficulty" class="label">Target Depth</label>
+                            <select id="difficulty" class="select">
+                                <option value="beginner">Beginner (Intuition & Metaphors)</option>
+                                <option value="intermediate" selected>Intermediate (Core Mechanics)</option>
+                                <option value="advanced">Advanced (Deep Architecture & Edge Cases)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <button id="explainBtn" class="btn-primary btn-block btn-lg">Generate Explanation</button>
+                        </div>
+                    </div>
+
+                    <!-- Quick suggestion chips -->
+                    <div class="quick-topics" style="justify-content: flex-start; margin-top: 0.75rem;">
+                        <button class="topic-chip" data-topic="Binary Search Algorithm">Binary Search</button>
+                        <button class="topic-chip" data-topic="Attention Mechanism in Transformers">Attention Mechanism</button>
+                        <button class="topic-chip" data-topic="CRISPR Gene Editing">CRISPR</button>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div id="outputSection" class="output-section">
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state">
+                        <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                        <h3>Ready to Explain Any Concept</h3>
+                        <p>Enter a topic above and select your target depth for a structured, high-yield explanation.</p>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="loading-state" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <h3>Gemini is Explaining...</h3>
+                        <p>Synthesizing intuitive analogies, architectural mechanics, and practical code insights.</p>
+                    </div>
+
+                    <!-- Content -->
+                    <div id="contentSection" class="content-section" style="display: none;">
+                        <div class="card explanation-card">
+                            <div class="explanation-header">
+                                <div>
+                                    <h2 id="topicTitle" style="font-size: 1.6rem; font-weight: 800;">Topic</h2>
+                                    <span id="readingTimeBadge" style="font-size: 0.85rem; color: var(--color-text-tertiary);">3 min read</span>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <span class="confidence-badge" id="sourceBadge">Gemini AI</span>
+                                    <button class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.82rem;" onclick="copyExplanation()">📋 Copy</button>
+                                </div>
+                            </div>
+                            <div class="explanation-content" id="explanationContent"></div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <a id="continueMcqLink" href="mcq.html" class="btn-primary">Test Knowledge with MCQs →</a>
+                            <button id="downloadPdfBtn" class="btn-secondary">Download Study PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Core Scripts -->
+    <script src="app-core.js"></script>
+    <script src="explanation.js"></script>
+</body>
+</html>

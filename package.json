@@ -1,0 +1,22 @@
+{
+  "name": "gemini-smartnotes",
+  "version": "2.0.0",
+  "description": "Interactive AI-Powered Study Assistant with Topic Explanations, Self-Grading MCQs, Q&A, and PDF Generation.",
+  "main": "main.py",
+  "scripts": {
+    "start": "python3 main.py",
+    "dev": "uvicorn main:app --reload --port 8000",
+    "test": "python3 -m pytest tests/"
+  },
+  "keywords": [
+    "gemini",
+    "fastapi",
+    "ai",
+    "education",
+    "smart-notes",
+    "pdf-generator",
+    "quiz"
+  ],
+  "author": "Aditya Patra",
+  "license": "MIT"
+}

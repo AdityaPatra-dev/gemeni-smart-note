@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini SmartNotes - Smarter Learning with AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Glow Orbs -->
+    <div class="bg-ambient-orb orb-1"></div>
+    <div class="bg-ambient-orb orb-2"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="logo-text-group">
+                        <span class="logo-text">Gemini SmartNotes</span>
+                        <span class="logo-subtitle">AI Learning Architecture</span>
+                    </div>
+                </a>
+
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">Workflow</a>
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="mcq.html">Quiz Arena</a>
+                    <a href="summary.html">PDF Notes</a>
+                </div>
+
+                <div class="nav-actions">
+                    <!-- API Key Settings -->
+                    <button class="btn-api-settings" title="Configure Gemini API Key">
+                        <span class="status-dot"></span>
+                        <span id="apiSettingsLabel">AI Engine</span>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Theme"></button>
+
+                    <a href="dashboard.html" class="btn-primary">Launch App →</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with 3D Canvas -->
+    <section class="hero">
+        <canvas id="heroCanvas" class="hero-canvas"></canvas>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>✨ Next-Gen Learning Engine</span>
+                    <span>•</span>
+                    <span>Powered by Google Gemini</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Master Any Concept with <br/>
+                    <span class="gradient-text">Interactive Gemini AI</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Transform complex topics into crystal-clear explanations, self-grading interactive MCQs, quick revision summaries, and publication-ready study PDFs.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="dashboard.html" class="btn-primary btn-lg">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                        </svg>
+                        Get Started Free
+                    </a>
+                    <button class="btn-secondary btn-lg" onclick="scrollToDemo()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                        </svg>
+                        Explore Features
+                    </button>
+                </div>
+
+                <!-- Topic suggestion chips -->
+                <div class="quick-topics">
+                    <span class="quick-topics-label">Try searching:</span>
+                    <button class="topic-chip" onclick="location.href='explanation.html?topic=Binary%20Search'">⚡ Binary Search</button>
+                    <button class="topic-chip" onclick="location.href='explanation.html?topic=Neural%20Networks'">🧠 Neural Networks</button>
+                    <button class="topic-chip" onclick="location.href='explanation.html?topic=Quantum%20Computing'">⚛️ Quantum Computing</button>
+                    <button class="topic-chip" onclick="location.href='explanation.html?topic=System%20Design'">📊 System Design</button>
+                    <button class="topic-chip" onclick="location.href='explanation.html?topic=CRISPR%20Gene%20Editing'">🧬 CRISPR</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="page-badge">🚀 High-Impact Modules</div>
+                <h2 class="section-title">Everything You Need to Excel</h2>
+                <p class="section-subtitle">A cohesive AI study suite crafted for learners, developers, and researchers.</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Dashboard Feature Card -->
+                <a href="dashboard.html" class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="9"></rect>
+                            <rect x="14" y="3" width="7" height="5"></rect>
+                            <rect x="14" y="12" width="7" height="9"></rect>
+                            <rect x="3" y="16" width="7" height="5"></rect>
+                        </svg>
+                    </div>
+                    <h3>Unified AI Dashboard</h3>
+                    <p>Generate explanations, MCQs, common doubts, and revision cards concurrently in a single click.</p>
+                    <span class="feature-arrow">Open Dashboard →</span>
+                </a>
+
+                <!-- Explanation Feature Card -->
+                <a href="explanation.html" class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </div>
+                    <h3>Adaptive Topic Explanations</h3>
+                    <p>Beginner, intermediate, and advanced structured breakdowns with real-world architectural examples.</p>
+                    <span class="feature-arrow">Explore Explanations →</span>
+                </a>
+
+                <!-- MCQ Arena Feature Card -->
+                <a href="mcq.html" class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11l3 3L22 4"></path>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                        </svg>
+                    </div>
+                    <h3>Interactive Quiz Arena</h3>
+                    <p>Timed quizzes with immediate scoring feedback, detailed justifications, and confetti celebrations.</p>
+                    <span class="feature-arrow">Take a Quiz →</span>
+                </a>
+
+                <!-- Q&A doubts Feature Card -->
+                <a href="qa.html" class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3>Doubts & Deep Q&A</h3>
+                    <p>Accordion-style interactive Q&A answering subtle corner cases, interview questions, and misconceptions.</p>
+                    <span class="feature-arrow">Browse Q&A →</span>
+                </a>
+
+                <!-- Summary Notes & PDF -->
+                <a href="summary.html" class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3>High-Yield Revision & PDF</h3>
+                    <p>Compile beautiful, publication-ready study guides into styled PDF documents for offline learning.</p>
+                    <span class="feature-arrow">Generate PDF Notes →</span>
+                </a>
+
+                <!-- Security Feature Card -->
+                <div class="feature-card" style="cursor: pointer;" onclick="window.openApiSettingsModal()">
+                    <div class="feature-icon-wrap" style="color: var(--color-cyan);">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3>Zero-Leak Security</h3>
+                    <p>Your API key stays encrypted in your browser or local .env file. No credentials ever leaked or logged.</p>
+                    <span class="feature-arrow">Configure Key →</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="page-badge">⚡ Streamlined Flow</div>
+                <h2 class="section-title">How It Works in 3 Simple Steps</h2>
+                <p class="section-subtitle">From prompt to deep understanding in seconds.</p>
+            </div>
+
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Enter Any Topic</h3>
+                    <p>Type any subject—from algorithms and thermodynamics to legal frameworks or machine learning.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Gemini AI Synthesis</h3>
+                    <p>Google Gemini breaks down the material, builds interactive test items, and synthesizes key summaries.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Learn & Export PDF</h3>
+                    <p>Practice with interactive quizzes, review common pitfalls, and download formatted PDF study notes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="logo">
+                        <div class="logo-icon-wrap" style="width: 32px; height: 32px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                        </div>
+                        <span class="logo-text">Gemini SmartNotes</span>
+                    </div>
+                    <p class="footer-tagline">Engineered for smarter learning with Google Gemini AI.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/AdityaPatra-dev/gemeni-smart-note" target="_blank" class="footer-link">GitHub Repository</a>
+                    <a href="dashboard.html" class="footer-link">Dashboard</a>
+                    <a href="mcq.html" class="footer-link">Quiz Arena</a>
+                    <a href="#" onclick="window.openApiSettingsModal(); return false;" class="footer-link">API Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="app-core.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

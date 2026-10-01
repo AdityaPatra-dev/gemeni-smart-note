@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Doubts & Summary - Gemini SmartNotes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Glow Orbs -->
+    <div class="bg-ambient-orb orb-1"></div>
+    <div class="bg-ambient-orb orb-2"></div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="logo-text-group">
+                        <span class="logo-text">Gemini SmartNotes</span>
+                        <span class="logo-subtitle">Doubts & Mastery</span>
+                    </div>
+                </a>
+
+                <div class="nav-actions">
+                    <button class="btn-api-settings" title="Configure Gemini API Key">
+                        <span class="status-dot"></span>
+                        <span id="apiSettingsLabel">AI Engine</span>
+                    </button>
+                    <button class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Theme"></button>
+                    <a href="index.html" class="btn-secondary">← Home</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="qa-page">
+        <div class="container">
+            <div class="qa-container">
+                <!-- Header Section -->
+                <div class="page-header">
+                    <div class="page-badge">❓ Deep Doubts & Core Answers</div>
+                    <h1 class="page-title">Q&A & Quick Summary</h1>
+                    <p class="page-subtitle">Resolve edge cases, tackle interview questions, and review core concepts.</p>
+                </div>
+
+                <!-- Input Card -->
+                <div class="card input-card">
+                    <div class="form-group">
+                        <label for="topic" class="label">Enter Your Topic</label>
+                        <input 
+                            type="text" 
+                            id="topic" 
+                            class="input" 
+                            placeholder="e.g., Quantum Physics, React Hooks, Graph Algorithms, Database Indexing"
+                            autofocus
+                        />
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="difficulty" class="label">Proficiency Level</label>
+                            <select id="difficulty" class="select">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate" selected>Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <button id="generateBtn" class="btn-primary btn-block btn-lg">Generate Q&A & Summary</button>
+                        </div>
+                    </div>
+
+                    <!-- Quick suggestion chips -->
+                    <div class="quick-topics" style="justify-content: flex-start; margin-top: 0.75rem;">
+                        <button class="topic-chip" data-topic="Database Indexing (B-Trees vs Hash)">B-Trees vs Hash</button>
+                        <button class="topic-chip" data-topic="React Fiber Reconciler">React Fiber</button>
+                        <button class="topic-chip" data-topic="CAP Theorem Distributed Systems">CAP Theorem</button>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div id="outputSection" class="output-section">
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state">
+                        <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 16v-4"></path>
+                            <path d="M12 8h.01"></path>
+                        </svg>
+                        <h3>Master Common Doubts & Key Insights</h3>
+                        <p>Enter any topic above and Gemini AI will curate critical questions and a high-yield summary.</p>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="loading-state" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <h3>Formulating Expert Q&A...</h3>
+                        <p>Identifying high-frequency interview questions, misconceptions, and concise summaries.</p>
+                    </div>
+
+                    <!-- Content -->
+                    <div id="contentSection" class="content-section" style="display: none;">
+                        <!-- Summary Card -->
+                        <div class="card summary-card">
+                            <div class="card-header">
+                                <h3>📝 Quick Revision Summary</h3>
+                                <button class="btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" onclick="copySummaryText()">
+                                    📋 Copy
+                                </button>
+                            </div>
+                            <div class="summary-content" id="summaryContent"></div>
+                        </div>
+
+                        <!-- Q&A Section -->
+                        <div class="qa-section" style="margin-top: 2rem;">
+                            <h2 class="section-title-small" style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem;">
+                                Critical Questions & Conceptual Answers
+                            </h2>
+                            <div class="qa-list" id="qaList"></div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <a href="summary.html" class="btn-primary">View Full Revision Notes →</a>
+                            <button id="downloadPdfBtn" class="btn-secondary">Download Study Guide PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Core Scripts -->
+    <script src="app-core.js"></script>
+    <script src="qa.js"></script>
+</body>
+</html>

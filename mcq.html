@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Arena - Gemini SmartNotes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Glow Orbs -->
+    <div class="bg-ambient-orb orb-1"></div>
+    <div class="bg-ambient-orb orb-2"></div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="logo-text-group">
+                        <span class="logo-text">Gemini SmartNotes</span>
+                        <span class="logo-subtitle">Interactive Quiz Arena</span>
+                    </div>
+                </a>
+
+                <div class="nav-actions">
+                    <button class="btn-api-settings" title="Configure Gemini API Key">
+                        <span class="status-dot"></span>
+                        <span id="apiSettingsLabel">AI Engine</span>
+                    </button>
+                    <button class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Theme"></button>
+                    <a href="index.html" class="btn-secondary">← Home</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="mcq-page">
+        <div class="container">
+            <div class="mcq-container">
+                <!-- Header Section -->
+                <div class="page-header">
+                    <div class="page-badge">🎯 Active Knowledge Verification</div>
+                    <h1 class="page-title">Interactive MCQ Arena</h1>
+                    <p class="page-subtitle">Test yourself with AI-generated multiple choice questions and instant explanations.</p>
+                </div>
+
+                <!-- Input Card -->
+                <div class="card input-card">
+                    <div class="form-group">
+                        <label for="topic" class="label">Enter Quiz Topic</label>
+                        <input 
+                            type="text" 
+                            id="topic" 
+                            class="input" 
+                            placeholder="e.g., Data Structures, Quantum Mechanics, Machine Learning, World History"
+                            autofocus
+                        />
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="difficulty" class="label">Difficulty</label>
+                            <select id="difficulty" class="select">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate" selected>Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="count" class="label">Question Count</label>
+                            <select id="count" class="select">
+                                <option value="3">3 Questions (Quick Sprint)</option>
+                                <option value="5" selected>5 Questions (Standard)</option>
+                                <option value="10">10 Questions (Mastery Drill)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="generateBtn" class="btn-primary btn-block btn-lg" style="margin-top: 0.5rem;">
+                        Start Interactive Quiz
+                    </button>
+
+                    <!-- Quick suggestion chips -->
+                    <div class="quick-topics" style="justify-content: flex-start; margin-top: 0.75rem;">
+                        <button class="topic-chip" data-topic="Graph Algorithms">Graph Algorithms</button>
+                        <button class="topic-chip" data-topic="Operating Systems Scheduling">OS Scheduling</button>
+                        <button class="topic-chip" data-topic="Neural Network Optimizers">Optimizers (Adam/SGD)</button>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <h3>Gemini AI is Formulating Questions...</h3>
+                    <p>Creating options, validating distractor choices, and preparing reasoning breakdowns.</p>
+                </div>
+
+                <!-- Quiz Section -->
+                <div id="quizSection" style="display: none;">
+                    <div class="quiz-header">
+                        <div>
+                            <h2 id="quizTitle" style="font-size: 1.5rem; font-weight: 800;">Topic</h2>
+                            <span id="quizDifficultyBadge" class="page-badge">Intermediate</span>
+                        </div>
+                        <div class="quiz-progress">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--color-text-tertiary);">
+                                <span id="progressText">Question 1 of 5</span>
+                                <span id="scoreTracker">Score: 0</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill" style="width: 20%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question Card -->
+                    <div class="card mcq-card" id="mcqCard">
+                        <div class="question-header" style="display: flex; justify-content: space-between;">
+                            <span class="question-number">Question <span id="currentQuestion">1</span></span>
+                        </div>
+                        <h3 class="question-text" id="questionText">Question goes here</h3>
+                        <div class="options" id="optionsContainer">
+                            <!-- Options injected dynamically -->
+                        </div>
+                        
+                        <div class="explanation-box" id="explanationBox" style="display: none;">
+                            <div class="explanation-header" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                                <span class="result-icon" id="resultIcon">✓</span>
+                                <span class="result-text" id="resultText">Correct!</span>
+                            </div>
+                            <p id="explanationText" style="color: var(--color-text-secondary); line-height: 1.6;"></p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-actions">
+                        <button id="nextBtn" class="btn-primary btn-lg" style="display: none;">Next Question →</button>
+                        <button id="finishBtn" class="btn-primary btn-lg" style="display: none;">Finish & View Results 🏆</button>
+                    </div>
+
+                    <!-- Raw Fallback if parsing failed -->
+                    <div id="rawTextContainer" class="card" style="display: none; margin-top: 20px;"></div>
+
+                    <!-- Results Card -->
+                    <div id="resultsCard" class="card results-card" style="display: none;">
+                        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Quiz Complete! 🎉</h2>
+                        <div class="score-display">
+                            <div class="score-circle">
+                                <span class="score-text" id="scoreText">80%</span>
+                            </div>
+                            <p class="score-description" id="scoreDescription" style="font-size: 1.15rem; color: var(--color-text-secondary); margin-bottom: 1.5rem;"></p>
+                        </div>
+                        <div class="action-buttons">
+                            <a id="continueQaLink" href="qa.html" class="btn-primary">Review Doubts & Q&A →</a>
+                            <button class="btn-secondary" onclick="restartQuiz()">Retake Quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Core Scripts -->
+    <script src="app-core.js"></script>
+    <script src="mcq.js"></script>
+</body>
+</html>

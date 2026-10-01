@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Revision & PDF - Gemini SmartNotes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Glow Orbs -->
+    <div class="bg-ambient-orb orb-1"></div>
+    <div class="bg-ambient-orb orb-2"></div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="logo-text-group">
+                        <span class="logo-text">Gemini SmartNotes</span>
+                        <span class="logo-subtitle">Revision & PDF Studio</span>
+                    </div>
+                </a>
+
+                <div class="nav-actions">
+                    <button class="btn-api-settings" title="Configure Gemini API Key">
+                        <span class="status-dot"></span>
+                        <span id="apiSettingsLabel">AI Engine</span>
+                    </button>
+                    <button class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Theme"></button>
+                    <a href="index.html" class="btn-secondary">← Home</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="summary-page">
+        <div class="container">
+            <div class="summary-container">
+                <!-- Header Section -->
+                <div class="page-header">
+                    <div class="page-badge">📄 Publication-Quality Notes</div>
+                    <h1 class="page-title">Smart Revision Notes & PDF</h1>
+                    <p class="page-subtitle">Concise revision summaries and one-click PDF downloads for offline learning.</p>
+                </div>
+
+                <!-- Input Card -->
+                <div class="card input-card">
+                    <div class="form-group">
+                        <label for="topic" class="label">Enter Topic for Notes</label>
+                        <input 
+                            type="text" 
+                            id="topic" 
+                            class="input" 
+                            placeholder="e.g., JavaScript Closures, Cell Biology, Distributed Systems, Macroeconomics"
+                            autofocus
+                        />
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="difficulty" class="label">Audience Depth</label>
+                            <select id="difficulty" class="select">
+                                <option value="beginner">Beginner Overview</option>
+                                <option value="intermediate" selected>Intermediate Standard</option>
+                                <option value="advanced">Advanced In-Depth</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <button id="generateBtn" class="btn-primary btn-block btn-lg">Generate Revision Notes</button>
+                        </div>
+                    </div>
+
+                    <!-- Quick suggestion chips -->
+                    <div class="quick-topics" style="justify-content: flex-start; margin-top: 0.75rem;">
+                        <button class="topic-chip" data-topic="JavaScript Closures and Scope Chain">JS Closures</button>
+                        <button class="topic-chip" data-topic="Cellular Respiration and ATP">Cellular Respiration</button>
+                        <button class="topic-chip" data-topic="Kubernetes Architecture">Kubernetes Core</button>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div id="outputSection" class="output-section">
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state">
+                        <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                        <h3>Create Downloadable Study Notes</h3>
+                        <p>Generate high-yield revision summaries and instantly export to a styled PDF document.</p>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="loading-state" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <h3>Compiling Smart Revision Notes...</h3>
+                        <p>Distilling essential formulas, key axioms, and exam-critical takeaways.</p>
+                    </div>
+
+                    <!-- Content -->
+                    <div id="contentSection" class="content-section" style="display: none;">
+                        <div class="notes-preview">
+                            <div class="card notes-card">
+                                <div class="notes-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+                                    <div>
+                                        <h2 id="notesTitle" style="font-size: 1.7rem; font-weight: 800;">Topic</h2>
+                                        <div class="notes-meta">
+                                            <span>Generated by Gemini AI</span>
+                                            <span>•</span>
+                                            <span id="pageCount">Study Guide</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn-secondary" onclick="copyNotes()" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                                        📋 Copy Notes
+                                    </button>
+                                </div>
+                                <div class="notes-content" id="notesContent"></div>
+                            </div>
+                        </div>
+
+                        <!-- Download Actions -->
+                        <div class="download-actions">
+                            <button class="btn-primary btn-lg btn-block" id="downloadBtn">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Download Formatted PDF Study Guide
+                            </button>
+                            <div class="format-options">
+                                <button class="btn-secondary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+                                <button class="btn-secondary" onclick="copyNotes()">📋 Copy to Clipboard</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Core Scripts -->
+    <script src="app-core.js"></script>
+    <script src="summary.js"></script>
+</body>
+</html>

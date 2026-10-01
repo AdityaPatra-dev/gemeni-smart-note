@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" width="600" height="240">
+  <defs>
+    <linearGradient id="cubeGradA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="cubeGradB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="cubeGradC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <filter id="cubeGlow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      @keyframes spin3D {
+        0% { transform: rotateY(0deg) rotateX(20deg); }
+        50% { transform: rotateY(180deg) rotateX(-20deg); }
+        100% { transform: rotateY(360deg) rotateX(20deg); }
+      }
+      @keyframes floatSoft {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-12px); }
+      }
+      @keyframes pulseNode {
+        0%, 100% { r: 5; opacity: 0.8; }
+        50% { r: 8; opacity: 1; }
+      }
+      .cube-rotator {
+        transform-origin: 300px 120px;
+        animation: spin3D 12s linear infinite, floatSoft 4s ease-in-out infinite;
+      }
+      .node-pulse {
+        animation: pulseNode 2s ease-in-out infinite;
+      }
+    </style>
+  </defs>
+
+  <rect width="600" height="240" rx="12" fill="#090d16" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Background Orbit Rings -->
+  <ellipse cx="300" cy="120" rx="220" ry="75" fill="none" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1.5" stroke-dasharray="10 8"/>
+  <ellipse cx="300" cy="120" rx="250" ry="90" fill="none" stroke="rgba(236, 72, 153, 0.15)" stroke-width="1.2" stroke-dasharray="6 12" transform="rotate(-15, 300, 120)"/>
+
+  <!-- Center Floating 3D Isometric Crystal -->
+  <g class="cube-rotator" filter="url(#cubeGlow)">
+    <!-- Top Diamond -->
+    <polygon points="300,50 370,85 300,120 230,85" fill="url(#cubeGradB)" opacity="0.95" stroke="#ffffff" stroke-width="1.5"/>
+    <!-- Left Diamond -->
+    <polygon points="230,85 300,120 300,195 230,160" fill="url(#cubeGradA)" opacity="0.9" stroke="#c7d2fe" stroke-width="1"/>
+    <!-- Right Diamond -->
+    <polygon points="300,120 370,85 370,160 300,195" fill="url(#cubeGradC)" opacity="0.9" stroke="#93c5fd" stroke-width="1"/>
+
+    <!-- Vertex Highlights -->
+    <circle cx="300" cy="50" r="4" fill="#ffffff"/>
+    <circle cx="370" cy="85" r="4" fill="#ffffff"/>
+    <circle cx="230" cy="85" r="4" fill="#ffffff"/>
+    <circle cx="300" cy="120" r="5" fill="#ffffff"/>
+    <circle cx="300" cy="195" r="4" fill="#ffffff"/>
+    <circle cx="230" cy="160" r="4" fill="#ffffff"/>
+    <circle cx="370" cy="160" r="4" fill="#ffffff"/>
+  </g>
+
+  <!-- Orbital Data Nodes -->
+  <circle cx="110" cy="120" r="6" fill="#6366f1" class="node-pulse" filter="url(#cubeGlow)"/>
+  <text x="110" y="145" fill="#a5b4fc" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">REASONING</text>
+
+  <circle cx="490" cy="120" r="6" fill="#ec4899" class="node-pulse" filter="url(#cubeGlow)"/>
+  <text x="490" y="145" fill="#f472b6" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">SYNTHESIS</text>
+
+  <circle cx="300" cy="225" r="5" fill="#10b981" class="node-pulse" filter="url(#cubeGlow)"/>
+  <text x="300" y="238" fill="#6ee7b7" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">0.04s LATENCY</text>
+</svg>
